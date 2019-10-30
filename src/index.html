@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <title>Time Tools</title>
+    </head>
+
+    <body>
+
+
+        <div class="container-fluid">
+            <h1>TIME T&#x1F551;&#x1F551;LS</h1>
+
+            <h3 class="mt-4">Durations between datetimes</h3>
+            <div class="form-group">
+                <label for="dur-time1">First datetime</label>
+                <input type="text" class="form-control" id="dur-time1" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+            </div>
+            <div class="form-group">
+                <label for="dur-time2">Second datetime</label>
+                <input type="text" class="form-control" id="dur-time2" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+            </div>
+            <button class="btn-light" id="dur-button">Calculate</button>
+            <div class="mt-2" id="dur-result">
+            </div>
+
+            
+            <h3 class="mt-4">Add duration to datetime</h3>
+            <div class="form-group">
+                <label for="add-time1">Datetime</label>
+                <input type="text" class="form-control" id="add-time1" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="add-hours">Hours to add</label>
+                    <input type="text" class="form-control" id="add-hours" placeholder="0" value="0">
+                </div>
+                <div class="form-group col-md-2">
+                        <label for="add-minutes">Minutes to add</label>
+                        <input type="text" class="form-control" id="add-minutes" placeholder="0" value="0">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="add-seconds">Seconds to add</label>
+                    <input type="text" class="form-control" id="add-seconds" placeholder="0" value="0">
+                </div>
+                <div class="form-group col-md-2">
+                        <label for="add-millis">Milliseconds to add</label>
+                        <input type="text" class="form-control" id="add-millis" placeholder="0" value="0">
+                    </div>
+                </div>
+            <button class="btn-light" id="add-button">Calculate</button>
+            <div class="mt-2" id="add-result">
+            </div>
+
+            <h3 class="mt-4">Convert from datetime to unixtime</h3>
+            <div class="form-group">
+                <label for="tounix-time1">Datetime</label>
+                <input type="text" class="form-control" id="tounix-time1" placeholder="YYYY-MM-DD[THH:mm:ss]">
+            </div>
+            <button class="btn-light" id="tounix-button">Calculate</button>
+            <div class="mt-2" id="tounix-result">
+            </div>
+
+            <h3 class="mt-4">Convert from unixtime to datetime</h3>
+            <div class="form-group">
+                <label for="fromunix-time1">Unixtime</label>
+                <input type="text" class="form-control" id="fromunix-time1" placeholder="Unixtime value">
+            </div>
+            <button class="btn-light" id="fromunix-button">Calculate</button>
+            <div class="mt-2" id="fromunix-result">
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/sv.js"></script>
+
+        <script>
+            function formatTime(val) {
+                return val.format('YYYY-MM-DD[T]HH:mm:ss.SSS');
+            }
+
+            function zeroPad(num, places) {
+                let s = String(num);
+                if (s.length > places) {
+                    return num;
+                }
+                return s.padStart(places, '0')
+            }
+
+            function fmt(myNumber) {
+                if (myNumber < 0) {
+                    return "-" + zeroPad(-myNumber, 2);
+                }
+                else {
+                    return zeroPad(myNumber, 2);
+                }
+            }
+
+            $( document ).ready(function() {
+
+                $("#dur-button").on('click', function(event) {
+                    let time1 = moment($("#dur-time1").val().trim());
+                    let time2 = moment($("#dur-time2").val().trim());
+                    let duration = moment.duration(time2.diff(time1));
+                    let totalSeconds = duration.asSeconds();
+                    let milliseconds = duration.asMilliseconds();
+                    if (totalSeconds < 0) {
+                        milliseconds = -milliseconds;
+                    }
+                    let hours = Math.floor(milliseconds / 3600000);
+                    milliseconds -= hours * 3600000;
+                    let minutes = Math.floor(milliseconds / 60000);
+                    milliseconds -= minutes * 60000;
+                    let seconds = Math.floor(milliseconds / 1000);
+                    milliseconds -= seconds * 1000;
+
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th></tr></thead><tbody><tr>";
+                    html += "<td>" + totalSeconds + "</td>";
+                    if (totalSeconds < 0) {
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    else {
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    html += "</tr></tbody></table>";
+                    $("#dur-result").html(html);
+                });
+
+                $("#add-button").on('click', function(event) {
+                    let time1 = moment.utc($("#add-time1").val().trim());
+                    time1.add($("#add-hours").val(), "hours");
+                    time1.add($("#add-minutes").val(), "minutes");
+                    time1.add($("#add-seconds").val(), "seconds");
+                    time1.add($("#add-millis").val(), "milliseconds");
+
+                    $("#add-result").html("<table class=\"table\"><thead><tr><th>New datetime</th></tr></thead><tbody><tr><td>" + formatTime(time1) + "</td></tr></tbody></table>");
+                });
+
+                $("#tounix-button").on('click', function(event) {
+                    let time1 = moment.utc($("#tounix-time1").val().trim());
+
+                    $("#tounix-result").html("<table class=\"table\"><thead><tr><th>Unixtime</th></tr></thead><tbody><tr><td>" + time1.unix() + "</td></tr></tbody></table>");
+                });
+
+                $("#fromunix-button").on('click', function(event) {
+                    let time1 = moment.unix($("#fromunix-time1").val().trim()).utc();
+
+                    $("#fromunix-result").html("<table class=\"table\"><thead><tr><th>Datetime</th></tr></thead><tbody><tr><td>" + formatTime(time1) + "</td></tr></tbody></table>");
+                });
+            });
+
+        </script>
+
+   </body>
+
+</html>
