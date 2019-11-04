@@ -22,11 +22,11 @@
             <h3 class="mt-4">Durations between datetimes</h3>
             <div class="form-group">
                 <label for="dur-time1">First datetime</label>
-                <input type="text" class="form-control" id="dur-time1" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+                <input type="text" class="form-control" id="dur-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
             </div>
             <div class="form-group">
                 <label for="dur-time2">Second datetime</label>
-                <input type="text" class="form-control" id="dur-time2" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+                <input type="text" class="form-control" id="dur-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
             </div>
             <button class="btn-light" id="dur-button">Calculate</button>
             <div class="mt-2" id="dur-result">
@@ -36,7 +36,7 @@
             <h3 class="mt-4">Add duration to datetime</h3>
             <div class="form-group">
                 <label for="add-time1">Datetime</label>
-                <input type="text" class="form-control" id="add-time1" placeholder="YYYY-MM-DD[THH:mm:ss.SSS]">
+                <input type="text" class="form-control" id="add-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-2">
@@ -77,6 +77,20 @@
             <button class="btn-light" id="fromunix-button">Calculate</button>
             <div class="mt-2" id="fromunix-result">
             </div>
+
+            <h3 class="mt-4">Add durations</h3>
+            <div class="form-group">
+                <label for="adddur-time1">First duration</label>
+                <input type="text" class="form-control" id="adddur-time1" placeholder="[HH:mm:ss[.SSS]]">
+            </div>
+            <div class="form-group">
+                <label for="adddur-time2">Second duration</label>
+                <input type="text" class="form-control" id="adddur-time2" placeholder="[HH:mm:ss[.SSS]]">
+            </div>
+            <button class="btn-light" id="adddur-button">Calculate</button>
+            <div class="mt-2" id="adddur-result">
+            </div>
+            
         </div>
 
         <!-- JavaScript -->
@@ -162,6 +176,40 @@
 
                     $("#fromunix-result").html("<table class=\"table\"><thead><tr><th>Datetime</th></tr></thead><tbody><tr><td>" + formatTime(time1) + "</td></tr></tbody></table>");
                 });
+
+                $("#adddur-button").on('click', function(event) {
+                    let startTime = moment("1970-01-01T00:00:00.000");
+                    let time1 = moment("1970-01-01T" + $("#adddur-time1").val().trim());
+                    let time2 = moment("1970-01-01T" + $("#adddur-time2").val().trim());
+                    
+                    let duration = moment.duration(time1.diff(startTime));
+                    let duration2 = moment.duration(time2.diff(startTime));
+                    duration.add(duration2);
+
+                    let totalSeconds = duration.asSeconds();
+                    let milliseconds = duration.asMilliseconds();
+                    if (totalSeconds < 0) {
+                        milliseconds = -milliseconds;
+                    }
+                    let hours = Math.floor(milliseconds / 3600000);
+                    milliseconds -= hours * 3600000;
+                    let minutes = Math.floor(milliseconds / 60000);
+                    milliseconds -= minutes * 60000;
+                    let seconds = Math.floor(milliseconds / 1000);
+                    milliseconds -= seconds * 1000;
+
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th></tr></thead><tbody><tr>";
+                    html += "<td>" + totalSeconds + "</td>";
+                    if (totalSeconds < 0) {
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    else {
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    html += "</tr></tbody></table>";
+                    $("#adddur-result").html(html);
+                });
+
             });
 
         </script>
