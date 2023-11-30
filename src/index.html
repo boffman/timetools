@@ -90,6 +90,31 @@
             <button class="btn-light" id="adddur-button">Calculate</button>
             <div class="mt-2" id="adddur-result">
             </div>
+
+            <h3 class="mt-4">Pace between datetimes</h3>
+            <div class="form-row">
+                <div class="col">
+                    <label for="pace-time1">First datetime</label>
+                    <input type="text" class="form-control" id="pace-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]" value="2023-11-29T14:40:00">
+                </div>
+                <div class="col">
+                    <label for="pace-count1">First count</label>
+                    <input type="text" class="form-control" id="pace-count1" placeholder="[Number]" value="1321">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label for="pace-time2">Second datetime</label>
+                    <input type="text" class="form-control" id="pace-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]" value="2023-11-29T15:01:00">
+                </div>
+                <div class="col">
+                    <label for="pace-count2">Second count</label>
+                    <input type="text" class="form-control" id="pace-count2" placeholder="[Number]" value="12">
+                </div>
+            </div>
+            <button class="btn-light" id="pace-button">Calculate</button>
+            <div class="mt-2" id="pace-result">
+            </div>
             
         </div>
 
@@ -210,6 +235,42 @@
                     $("#adddur-result").html(html);
                 });
 
+                $("#pace-button").on('click', function(event) {
+                    let time1 = moment($("#pace-time1").val().trim());
+                    let time2 = moment($("#pace-time2").val().trim());
+                    let duration = moment.duration(time2.diff(time1));
+                    let totalSeconds = duration.asSeconds();
+                    let milliseconds = duration.asMilliseconds();
+                    if (totalSeconds < 0) {
+                        milliseconds = -milliseconds;
+                    }
+                    let hours = Math.floor(milliseconds / 3600000);
+                    milliseconds -= hours * 3600000;
+                    let minutes = Math.floor(milliseconds / 60000);
+                    milliseconds -= minutes * 60000;
+                    let seconds = Math.floor(milliseconds / 1000);
+                    milliseconds -= seconds * 1000;
+
+                    let count1 = parseFloat($("#pace-count1").val().trim());
+                    let count2 = parseFloat($("#pace-count2").val().trim());
+                    let countDiff = count2 - count1;
+                    let countPerSec = countDiff / totalSeconds;
+                    let secPerCount = Math.abs(totalSeconds / countDiff);
+
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count difference</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
+                    html += "<td>" + totalSeconds + "</td>";
+                    if (totalSeconds < 0) {
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    else {
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                    }
+                    html += "<td>" + countDiff + "</td>";
+                    html += "<td>" + countPerSec + "</td>";
+                    html += "<td>" + secPerCount + "</td>";
+                    html += "</tr></tbody></table>";
+                    $("#pace-result").html(html);
+                });
             });
 
         </script>
