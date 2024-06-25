@@ -20,25 +20,27 @@
             <h1>TIME T&#x1F551;&#x1F551;LS</h1>
 
             <h3 class="mt-4">Durations between datetimes</h3>
-            <div class="form-group">
-                <label for="dur-time1">First datetime</label>
-                <input type="text" class="form-control" id="dur-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
-            </div>
-            <div class="form-group">
-                <label for="dur-time2">Second datetime</label>
-                <input type="text" class="form-control" id="dur-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
-            </div>
-            <button class="btn-light" id="dur-button">Calculate</button>
+            <form id="get-duration">
+                <div class="form-group">
+                    <label for="dur-time1">First datetime</label>
+                    <input type="text" class="form-control" id="dur-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+                </div>
+                <div class="form-group">
+                    <label for="dur-time2">Second datetime</label>
+                    <input type="text" class="form-control" id="dur-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+                </div>
+                <button class="btn-light" id="dur-button">Calculate</button>
+            </form>
             <div class="mt-2" id="dur-result">
             </div>
 
-            
+
             <h3 class="mt-4">Add duration to datetime</h3>
-            <div class="form-group">
-                <label for="add-time1">Datetime</label>
-                <input type="text" class="form-control" id="add-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
-            </div>
-            <div class="form-row">
+            <form id="add-duration">
+                <div class="form-group">
+                    <label for="add-time1">Datetime</label>
+                    <input type="text" class="form-control" id="add-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+                </div>
                 <div class="form-group col-md-2">
                     <label for="add-hours">Hours to add</label>
                     <input type="text" class="form-control" id="add-hours" placeholder="0" value="0">
@@ -56,66 +58,92 @@
                         <input type="text" class="form-control" id="add-millis" placeholder="0" value="0">
                     </div>
                 </div>
-            <button class="btn-light" id="add-button">Calculate</button>
+                <button class="btn-light" id="add-button">Calculate</button>
+            </form>
             <div class="mt-2" id="add-result">
             </div>
 
             <h3 class="mt-4">Convert from datetime to unixtime</h3>
-            <div class="form-group">
-                <label for="tounix-time1">Datetime</label>
-                <input type="text" class="form-control" id="tounix-time1" placeholder="YYYY-MM-DD[THH:mm:ss]">
-            </div>
-            <button class="btn-light" id="tounix-button">Calculate</button>
+            <form id="to-unix">
+                <div class="form-group">
+                    <label for="tounix-time1">Datetime</label>
+                    <input type="text" class="form-control" id="tounix-time1" placeholder="YYYY-MM-DD[THH:mm:ss]">
+                </div>
+                <button class="btn-light" id="tounix-button">Calculate</button>
+            </form>
             <div class="mt-2" id="tounix-result">
             </div>
 
             <h3 class="mt-4">Convert from unixtime to datetime</h3>
-            <div class="form-group">
-                <label for="fromunix-time1">Unixtime</label>
-                <input type="text" class="form-control" id="fromunix-time1" placeholder="Unixtime value">
-            </div>
-            <button class="btn-light" id="fromunix-button">Calculate</button>
+            <form id="from-unix">
+                <div class="form-group">
+                    <label for="fromunix-time1">Unixtime</label>
+                    <input type="text" class="form-control" id="fromunix-time1" placeholder="Unixtime value">
+                </div>
+                <button class="btn-light" id="fromunix-button">Calculate</button>
+            </form>
             <div class="mt-2" id="fromunix-result">
             </div>
 
             <h3 class="mt-4">Add durations</h3>
-            <div class="form-group">
-                <label for="adddur-time1">First duration</label>
-                <input type="text" class="form-control" id="adddur-time1" placeholder="[HH:mm:ss[.SSS]]">
-            </div>
-            <div class="form-group">
-                <label for="adddur-time2">Second duration</label>
-                <input type="text" class="form-control" id="adddur-time2" placeholder="[HH:mm:ss[.SSS]]">
-            </div>
-            <button class="btn-light" id="adddur-button">Calculate</button>
+            <form id="add-durations">
+                <div class="form-group">
+                    <label for="adddur-time1">First duration</label>
+                    <input type="text" class="form-control" id="adddur-time1" placeholder="[HH:mm:ss[.SSS]]">
+                </div>
+                <div class="form-group">
+                    <label for="adddur-time2">Second duration</label>
+                    <input type="text" class="form-control" id="adddur-time2" placeholder="[HH:mm:ss[.SSS]]">
+                </div>
+                <button class="btn-light" id="adddur-button">Calculate</button>
+            </form>
             <div class="mt-2" id="adddur-result">
             </div>
 
             <h3 class="mt-4">Pace between datetimes</h3>
-            <div class="form-row">
-                <div class="col">
-                    <label for="pace-time1">First datetime</label>
-                    <input type="text" class="form-control" id="pace-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+            <form id="pace-1">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="pace-time1">First datetime</label>
+                        <input type="text" class="form-control" id="pace-time1" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+                    </div>
+                    <div class="col">
+                        <label for="pace-count1">First count</label>
+                        <input type="text" class="form-control" id="pace-count1" placeholder="[Number/expr]">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="pace-count1">First count</label>
-                    <input type="text" class="form-control" id="pace-count1" placeholder="[Number]">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="pace-time2">Second datetime</label>
+                        <input type="text" class="form-control" id="pace-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
+                    </div>
+                    <div class="col">
+                        <label for="pace-count2">Second count</label>
+                        <input type="text" class="form-control" id="pace-count2" placeholder="[Number/expr]">
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col">
-                    <label for="pace-time2">Second datetime</label>
-                    <input type="text" class="form-control" id="pace-time2" placeholder="YYYY-MM-DD[THH:mm:ss[.SSS]]">
-                </div>
-                <div class="col">
-                    <label for="pace-count2">Second count</label>
-                    <input type="text" class="form-control" id="pace-count2" placeholder="[Number]">
-                </div>
-            </div>
-            <button class="btn-light" id="pace-button">Calculate</button>
+                <button type="submit" class="btn-light" id="pace-button">Calculate</button>
+            </form>
             <div class="mt-2" id="pace-result">
             </div>
-            
+
+            <h3 class="mt-4">Pace per duration</h3>
+            <form id="pace-2">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="pace2-duration">Number of seconds</label>
+                        <input type="text" class="form-control" id="pace2-duration" placeholder="[Number/expr]">
+                    </div>
+                    <div class="col">
+                        <label for="pace2-count">Count</label>
+                        <input type="text" class="form-control" id="pace2-count" placeholder="[Number/expr]">
+                    </div>
+                </div>
+                <button type="submit" class="btn-light" id="pace2-button">Calculate</button>
+            </form>
+            <div class="mt-2" id="pace2-result">
+            </div>
+
         </div>
 
         <!-- JavaScript -->
@@ -152,7 +180,7 @@
 
             $( document ).ready(function() {
 
-                $("#dur-button").on('click', function(event) {
+                $("#get-duration").on('submit', function(event) {
                     let time1 = moment($("#dur-time1").val().trim());
                     let time2 = moment($("#dur-time2").val().trim());
                     let duration = moment.duration(time2.diff(time1));
@@ -171,16 +199,17 @@
                     let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th></tr></thead><tbody><tr>";
                     html += "<td>" + totalSeconds + "</td>";
                     if (totalSeconds < 0) {
-                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
                     else {
-                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
                     html += "</tr></tbody></table>";
                     $("#dur-result").html(html);
+                    return false;
                 });
 
-                $("#add-button").on('click', function(event) {
+                $("#add-duration").on('submit', function(event) {
                     let time1 = moment.utc($("#add-time1").val().trim());
                     time1.add($("#add-hours").val(), "hours");
                     time1.add($("#add-minutes").val(), "minutes");
@@ -188,25 +217,28 @@
                     time1.add($("#add-millis").val(), "milliseconds");
 
                     $("#add-result").html("<table class=\"table\"><thead><tr><th>New datetime</th></tr></thead><tbody><tr><td>" + formatTime(time1) + "</td></tr></tbody></table>");
+                    return false;
                 });
 
-                $("#tounix-button").on('click', function(event) {
+                $("#to-unix").on('submit', function(event) {
                     let time1 = moment.utc($("#tounix-time1").val().trim());
 
                     $("#tounix-result").html("<table class=\"table\"><thead><tr><th>Unixtime</th></tr></thead><tbody><tr><td>" + time1.unix() + "</td></tr></tbody></table>");
+                    return false;
                 });
 
-                $("#fromunix-button").on('click', function(event) {
+                $("#from-unix").on('submit', function(event) {
                     let time1 = moment.unix($("#fromunix-time1").val().trim()).utc();
 
                     $("#fromunix-result").html("<table class=\"table\"><thead><tr><th>Datetime</th></tr></thead><tbody><tr><td>" + formatTime(time1) + "</td></tr></tbody></table>");
+                    return false;
                 });
 
-                $("#adddur-button").on('click', function(event) {
+                $("#add-durations").on('submit', function(event) {
                     let startTime = moment("1970-01-01T00:00:00.000");
                     let time1 = moment("1970-01-01T" + $("#adddur-time1").val().trim());
                     let time2 = moment("1970-01-01T" + $("#adddur-time2").val().trim());
-                    
+
                     let duration = moment.duration(time1.diff(startTime));
                     let duration2 = moment.duration(time2.diff(startTime));
                     duration.add(duration2);
@@ -226,16 +258,17 @@
                     let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th></tr></thead><tbody><tr>";
                     html += "<td>" + totalSeconds + "</td>";
                     if (totalSeconds < 0) {
-                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
                     else {
-                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
                     html += "</tr></tbody></table>";
                     $("#adddur-result").html(html);
+                    return false;
                 });
 
-                $("#pace-button").on('click', function(event) {
+                $("#pace-1").on('submit', function(event) {
                     let time1 = moment($("#pace-time1").val().trim());
                     let time2 = moment($("#pace-time2").val().trim());
                     let duration = moment.duration(time2.diff(time1));
@@ -251,26 +284,55 @@
                     let seconds = Math.floor(milliseconds / 1000);
                     milliseconds -= seconds * 1000;
 
-                    let count1 = parseFloat($("#pace-count1").val().trim());
-                    let count2 = parseFloat($("#pace-count2").val().trim());
+                    let count1 = parseFloat(eval($("#pace-count1").val().trim()));
+                    let count2 = parseFloat(eval($("#pace-count2").val().trim()));
                     let countDiff = count2 - count1;
                     let countPerSec = countDiff / totalSeconds;
                     let secPerCount = Math.abs(totalSeconds / countDiff);
 
-                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count difference</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count 1</th><th>Count 2</th><th>Count difference</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
                     html += "<td>" + totalSeconds + "</td>";
                     if (totalSeconds < 0) {
-                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
                     else {
-                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";                        
+                        html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     }
+                    html += "<td>" + count1 + "</td>";
+                    html += "<td>" + count2 + "</td>";
                     html += "<td>" + countDiff + "</td>";
                     html += "<td>" + countPerSec + "</td>";
                     html += "<td>" + secPerCount + "</td>";
                     html += "</tr></tbody></table>";
                     $("#pace-result").html(html);
+                    return false;
                 });
+
+                $("#pace-2").on('submit', function(event) {
+                    let totalSeconds = parseFloat(eval($("#pace2-duration").val().trim()));
+                    let milliseconds = totalSeconds * 1000.0;
+                    let hours = Math.floor(milliseconds / 3600000);
+                    milliseconds -= hours * 3600000;
+                    let minutes = Math.floor(milliseconds / 60000);
+                    milliseconds -= minutes * 60000;
+                    let seconds = Math.floor(milliseconds / 1000);
+                    milliseconds -= seconds * 1000;
+
+                    let count = parseFloat($("#pace2-count").val().trim());
+                    let countPerSec = count / totalSeconds;
+                    let secPerCount = totalSeconds / count;
+
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
+                    html += "<td>" + totalSeconds + "</td>";
+                    html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
+                    html += "<td>" + count + "</td>";
+                    html += "<td>" + countPerSec + "</td>";
+                    html += "<td>" + secPerCount + "</td>";
+                    html += "</tr></tbody></table>";
+                    $("#pace2-result").html(html);
+                    return false;
+                });
+
             });
 
         </script>
