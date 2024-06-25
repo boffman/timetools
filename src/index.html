@@ -288,9 +288,10 @@
                     let count2 = parseFloat(eval($("#pace-count2").val().trim()));
                     let countDiff = count2 - count1;
                     let countPerSec = countDiff / totalSeconds;
+                    let countPerHour = countPerSec * 3600.0;
                     let secPerCount = Math.abs(totalSeconds / countDiff);
 
-                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count 1</th><th>Count 2</th><th>Count difference</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count 1</th><th>Count 2</th><th>Count difference</th><th>Counts per second</th><th>Seconds per count</th><th>Counts per hour</th></tr></thead><tbody><tr>";
                     html += "<td>" + totalSeconds + "</td>";
                     if (totalSeconds < 0) {
                         html += "<td>-" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
@@ -303,6 +304,7 @@
                     html += "<td>" + countDiff + "</td>";
                     html += "<td>" + countPerSec + "</td>";
                     html += "<td>" + secPerCount + "</td>";
+                    html += "<td>" + countPerHour + "</td>";
                     html += "</tr></tbody></table>";
                     $("#pace-result").html(html);
                     return false;
@@ -320,14 +322,16 @@
 
                     let count = parseFloat($("#pace2-count").val().trim());
                     let countPerSec = count / totalSeconds;
+                    let countPerHour = countPerSec * 3600.0;
                     let secPerCount = totalSeconds / count;
 
-                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count</th><th>Counts per second</th><th>Seconds per count</th></tr></thead><tbody><tr>";
+                    let html = "<table class=\"table\"><thead><tr><th>Total seconds</th><th>h/m/s/ms</th><th>Count</th><th>Counts per second</th><th>Seconds per count</th><th>Counts per hour</th></tr></thead><tbody><tr>";
                     html += "<td>" + totalSeconds + "</td>";
                     html += "<td>" + fmt(hours) + "h " + fmt(minutes) + "m " + fmt(seconds) + "s " + fmt(milliseconds) + "ms </td>";
                     html += "<td>" + count + "</td>";
                     html += "<td>" + countPerSec + "</td>";
                     html += "<td>" + secPerCount + "</td>";
+                    html += "<td>" + countPerHour + "</td>";
                     html += "</tr></tbody></table>";
                     $("#pace2-result").html(html);
                     return false;
